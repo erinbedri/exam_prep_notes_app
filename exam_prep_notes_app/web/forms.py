@@ -30,3 +30,9 @@ class DeleteNoteForm(forms.ModelForm):
             'content': forms.TextInput(attrs={'readonly': True}),
             'image_url': forms.URLInput(attrs={'readonly': True}),
         }
+
+
+class DeleteProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ()

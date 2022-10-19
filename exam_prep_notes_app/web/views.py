@@ -105,7 +105,24 @@ def show_note(request, pk):
 
 
 def show_profile(request):
-    context = {}
+    profile = get_profile()
+    notes_count = Note.objects.all().count()
+
+    context = {
+        'profile': profile,
+        'notes_count': notes_count,
+    }
 
     return render(request, 'profile.html', context)
+
+
+def delete_profile(request):
+    profile = get_profile()
+    notes = Note.objects.all()
+
+    if profile:
+        notes.delete()
+        profile.delete()
+
+    return redirect('show homepage')
 
