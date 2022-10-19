@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-from exam_prep_notes_app.web.models import Profile
+from exam_prep_notes_app.web.forms import CreateProfileForm
+from exam_prep_notes_app.web.models import Profile, Note
 
 
 def get_profile():
@@ -8,8 +9,33 @@ def get_profile():
     return profile
 
 
+def create_profile(request):
+    if request.method == 'POST':
+        form = CreateProfileForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('show homepage')
+    else:
+        form = CreateProfileForm()
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'home-no-profile.html', context)
+
+
 def show_homepage(request):
-    context = {}
+    profile = get_profile()
+    notes = Note.objects.all()
+
+    if profile is None:
+        return create_profile(request)
+
+    context = {
+        'profile': profile,
+        'notes': notes,
+    }
 
     return render(request, 'home-with-profile.html', context)
 

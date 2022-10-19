@@ -13,9 +13,15 @@
 <header>
     <nav>
         <ul>
-            <li class="img"><img src="{% static 'images/note.png' %}" width="32" height="32"/></li>
-
+            <li class="img"><img src="{% static 'images/note.png' %}"/></li>
             <li><a href="{% url 'show homepage' %}">Notes</a></li>
+
+            {% if profile %}
+                <li class="right">
+                    <a href="{% url 'add note' %}">Add Note</a>
+                    <a href="{% url 'show profile' %}">Profile</a>
+                </li>
+            {% endif %}
         </ul>
     </nav>
 </header>
