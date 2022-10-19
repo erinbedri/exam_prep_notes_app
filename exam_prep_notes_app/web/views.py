@@ -1,5 +1,12 @@
 from django.shortcuts import render
 
+from exam_prep_notes_app.web.models import Profile
+
+
+def get_profile():
+    profile = Profile.objects.all().first()
+    return profile
+
 
 def show_homepage(request):
     context = {}
