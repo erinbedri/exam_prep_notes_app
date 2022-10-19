@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
-from exam_prep_notes_app.web.forms import CreateProfileForm
+from exam_prep_notes_app.web.forms import CreateProfileForm, AddNoteForm
 from exam_prep_notes_app.web.models import Profile, Note
 
 
@@ -41,7 +41,17 @@ def show_homepage(request):
 
 
 def add_note(request):
-    context = {}
+    if request.method == 'POST':
+        form = AddNoteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('show homepage')
+    else:
+        form = AddNoteForm()
+
+    context = {
+        'form': form,
+    }
 
     return render(request, 'note-create.html', context)
 
@@ -58,8 +68,12 @@ def delete_note(request):
     return render(request, 'note-delete.html', context)
 
 
-def show_note(request):
-    context = {}
+def show_note(request, pk):
+    note = get_object_or_404(Note, pk=pk)
+
+    context = {
+        'note': note,
+    }
 
     return render(request, 'note-details.html', context)
 

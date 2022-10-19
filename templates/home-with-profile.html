@@ -6,7 +6,7 @@
 
     {% for note in notes %}
         <div class="note-container">
-            <h2>Today's Tasks <img src="{{ note.image_url }}"/></h2>
+            <h2>{{ note.title}} <img src="{{ note.image_url }}"/></h2>
 
             <div class="right">
                 <a class="button details" href="{% url 'show note' note.id %}">Details</a>
