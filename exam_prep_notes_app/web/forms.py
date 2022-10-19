@@ -13,3 +13,9 @@ class AddNoteForm(ModelForm):
     class Meta:
         model = Note
         fields = '__all__'
+
+
+class EditNoteForm(ModelForm):
+    class Meta:
+        model = Note
+        fields = '__all__'
