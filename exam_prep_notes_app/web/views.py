@@ -78,20 +78,15 @@ def edit_note(request, pk):
 def delete_note(request, pk):
     note = get_object_or_404(Note, pk=pk)
 
-    if request.method == 'POST':
-        form = DeleteNoteForm(request.POST, instance=note)
-        if form.is_valid():
-            note.delete()
-            return redirect('show homepage')
-    else:
-        form = DeleteNoteForm(instance=note)
+    if request.method == 'GET':
+        context = {
+            'note': note,
+            'form': DeleteNoteForm(instance=note),
+        }
+        return render(request, 'note-delete.html', context)
 
-    context = {
-        'note': note,
-        'form': form,
-    }
-
-    return render(request, 'note-delete.html', context)
+    note.delete()
+    return redirect('show homepage')
 
 
 def show_note(request, pk):

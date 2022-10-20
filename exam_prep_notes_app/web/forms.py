@@ -26,9 +26,9 @@ class DeleteNoteForm(forms.ModelForm):
         model = Note
         fields = '__all__'
         widgets = {
-            'title': forms.TextInput(attrs={'readonly': True}),
-            'content': forms.TextInput(attrs={'readonly': True}),
-            'image_url': forms.URLInput(attrs={'readonly': True}),
+            'title': forms.TextInput(attrs={'disabled': True}),
+            'content': forms.TextInput(attrs={'disabled': True}),
+            'image_url': forms.URLInput(attrs={'disabled': True}),
         }
 
 
